@@ -1,0 +1,6 @@
+{
+    "mongoURI": "mongodb+srv://benDB:bentasmo22@udemymern.ox00a.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "secret": "shhhhitsmysecret",
+    "githubClientID": "d308a205b5643211a04e",
+    "githubSecret": "4a7e4138a54aed03a5ff5c72ef0ed3aafe2e0f38"
+}
