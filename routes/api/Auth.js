@@ -81,7 +81,6 @@ router.post("/",
     // get users gravatar 
     // bcrypt password 
     // return token 
-
   }
 ); 
 

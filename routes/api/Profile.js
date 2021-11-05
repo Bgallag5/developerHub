@@ -17,7 +17,7 @@ router.get("/me", Auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id }).populate(
       "user",
-      ["name", "avatar"]
+      ["username", "avatar"]
     );
 
     if (!profile) {
