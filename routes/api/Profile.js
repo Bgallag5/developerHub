@@ -15,10 +15,7 @@ const config = require('config');
 // @access Private
 router.get("/me", Auth, async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id }).populate(
-      "user",
-      ["username", "avatar"]
-    );
+    const profile = await Profile.findOne({ user: req.user.id }).populate("user",["username", "avatar"]);
 
     if (!profile) {
       return res.status(400).json({ message: "No profile for this user" });
@@ -36,10 +33,7 @@ router.get("/me", Auth, async (req, res) => {
 // @access Public
 router.get("/", async (req, res) => {
   try {
-    const allUserProfiles = await Profile.find({}).populate("user", [
-      "username",
-      "avatar",
-    ]);
+    const allUserProfiles = await Profile.find({}).populate("user", ["username","avatar",]);
 
     if (!allUserProfiles) {
       res.status(400).json({ message: "No User Profiles Found" });
@@ -119,8 +113,6 @@ router.post("/",
     ],
   ],
   async (req, res) => {
-    console.log(req);
-    console.log(req.user);
     const errors = validationResult(req);
 
     //check the errors array is empty
@@ -240,15 +232,14 @@ router.put("/experience",
 router.delete("/experience/:id", Auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
-    console.log(profile);
+
     const filteredExp = profile.experience.filter(
       (exp) => exp.id !== req.params.id
     );
 
-    console.log(filteredExp);
-
     profile.experience = filteredExp;
     await profile.save();
+
     res.json(profile);
   } catch (err) {
     console.error(err);
@@ -306,13 +297,11 @@ router.put("/education",
 router.delete("/education/:id", Auth, async (req, res) => {
     try {
       const profile = await Profile.findOne({ user: req.user.id });
-      console.log(profile);
       const filteredEducation = profile.education.filter((edu) => edu.id !== req.params.id);
-  
-      console.log(filteredEducation);
-  
+
       profile.education = filteredEducation;
       await profile.save();
+
       res.json(profile);
     } catch (err) {
       console.error(err);
@@ -324,8 +313,6 @@ router.delete("/education/:id", Auth, async (req, res) => {
 // @desc Deletes the User and their associated Profile/Posts
 // @access Private
 router.delete("/", Auth, async (req, res) => {
-  console.log("DEL ROUTE HIT");
-  console.log(req.user);
   try {
     await Profile.findOneAndDelete({ user: req.user.id });
     await User.findOneAndDelete({ _id: req.user.id });
