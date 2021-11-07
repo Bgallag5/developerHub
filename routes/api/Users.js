@@ -13,7 +13,7 @@ const bcrypt = require("bcrypt");
 const expiration = "2h";
 
 // @route GET api/users
-// @desc register user
+// @desc Register user
 // @access Public
 router.post(
   "/",
