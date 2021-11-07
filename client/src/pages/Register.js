@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 // import { setAlert } from "../../actions/alert";
 // import { register } from "../../actions/auth";
+import { setAlert } from "../actions/alert";
 import PropTypes from "prop-types";
 import axios from 'axios';
 
-export default function Register ({ setAlert, register, isAuthenticated }) {
+
+const Register = ({setAlert}) => {
   const [formState, setFormState] = useState({
     username: "",
     email: "",
@@ -28,7 +30,9 @@ export default function Register ({ setAlert, register, isAuthenticated }) {
     //   ? setAlert("Passwords do not match", "danger")
     //   : register({ username, email, password });
     if (password !== confirmPassword){
-        console.log('no match password');
+        // console.log('no match password');
+        // sends message, and type (type for css styles)
+        setAlert('Passwords must match', 'danger')
     } else {
         console.log('success');
     }
@@ -102,16 +106,19 @@ export default function Register ({ setAlert, register, isAuthenticated }) {
   );
 };
 
-// Register.propTypes = {
-//   setAlert: PropTypes.func.isRequired,
+
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
 //   register: PropTypes.func.isRequired,
 //   isAuthenticated: PropTypes.bool,
-// };
+};
 
 // //mapStateToProps allows access to redux-store
 // const mapStateToProps = (state) => ({
 //   isAuthenticated: state.auth.isAuthenticated,
 // });
 
-// module.exports = Register
+
+//export statement that connects redux; what we EXPORT in connect (i.e. setAlert), we have access to in PROPS on THIS component
+export default connect(null, {setAlert})(Register);
 // export default connect(mapStateToProps, { setAlert, register })(Register);
