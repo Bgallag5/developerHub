@@ -1,9 +1,12 @@
 import React, { useState }  from "react";
-import { Link } from "react-router-dom";
+import { Link,  Navigate } from "react-router-dom";
+import { loginUser } from '../actions/auth';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 
 
-export default function Login() {
+const Login = ({ loginUser, isAuthenticated }) => {
   const [formState, setFormState] = useState({
     username: "",
     password: "",
@@ -17,20 +20,13 @@ export default function Login() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const {email, password } = formState;
-    // password !== confirmPassword
-    //   ? setAlert("Passwords do not match", "danger")
-    //   : register({ username, email, password });
-    if (password && email) {
-      console.log("no match password");
-    } else {
-      console.log("success");
-    }
+    loginUser({email, password});
   };
 
-  //   if (isAuthenticated) {
-  //     //  redirect to homepage with direct Homepage return
-  //     return <Redirect to="/dashboard" />;
-  //   }
+    if (isAuthenticated) {
+      console.log('REDIRECTED');
+      return <Navigate to="/dashboard" />;
+    }
 
   return (
     <section className="container">
@@ -71,3 +67,14 @@ export default function Login() {
   );
 }
 
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+}
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+
+})
+
+export default connect(mapStateToProps, {loginUser })(Login);

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 // import { setAlert } from "../../actions/alert";
 // import { register } from "../../actions/auth";
 import { setAlert } from "../actions/alert";
 import PropTypes from "prop-types";
 import axios from 'axios';
+import { registerUser } from '../actions/auth';
 
 
-const Register = ({setAlert}) => {
+const Register = ({ setAlert, registerUser, isAuthenticated }) => {
   const [formState, setFormState] = useState({
     username: "",
     email: "",
@@ -25,23 +26,20 @@ const Register = ({setAlert}) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
     const { username, email, password, confirmPassword } = formState;
-    // password !== confirmPassword
-    //   ? setAlert("Passwords do not match", "danger")
-    //   : register({ username, email, password });
     if (password !== confirmPassword){
-        // console.log('no match password');
         // sends message, and type (type for css styles)
         setAlert('Passwords must match', 'danger')
     } else {
         console.log('success');
+        registerUser({username, email, password})
     }
   };
 
-//   if (isAuthenticated) {
-//     //  redirect to homepage with direct Homepage return
-//     return <Redirect to="/dashboard" />;
-//   }
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" />;
+  }
 
   return (
     <section className="container">
@@ -61,7 +59,7 @@ const Register = ({setAlert}) => {
             name="username"
             value={formState.username}
             onChange={handleFormChange}
-            required
+            // required
           />
         </div>
         <div className="form-group">
@@ -82,7 +80,7 @@ const Register = ({setAlert}) => {
             type="password"
             placeholder="Password"
             name="password"
-            minLength="6"
+            // minLength="6"
             value={formState.password}
             onChange={handleFormChange}
           />
@@ -92,7 +90,7 @@ const Register = ({setAlert}) => {
             type="password"
             placeholder="Confirm Password"
             name="confirmPassword"
-            minLength="6"
+            // minLength="6"
             value={formState.confirmPassword}
             onChange={handleFormChange}
           />
@@ -109,16 +107,14 @@ const Register = ({setAlert}) => {
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
-//   register: PropTypes.func.isRequired,
-//   isAuthenticated: PropTypes.bool,
+  registerUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
-// //mapStateToProps allows access to redux-store
-// const mapStateToProps = (state) => ({
-//   isAuthenticated: state.auth.isAuthenticated,
-// });
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated
+})
 
 
 //export statement that connects redux; what we EXPORT in connect (i.e. setAlert), we have access to in PROPS on THIS component
-export default connect(null, {setAlert})(Register);
-// export default connect(mapStateToProps, { setAlert, register })(Register);
+export default connect(mapStateToProps, {setAlert, registerUser})(Register);
