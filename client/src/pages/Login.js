@@ -28,10 +28,10 @@ const Login = ({ loginUser, isAuthenticated }) => {
 
   return (
     <section className="container">
-      <h1 className="large text-primary">Login</h1>
+      <h1 className="large text-primary"> Login </h1>{" "}
       <p className="lead">
-        <i className="fas fa-user"></i> Sign In To Your Account
-      </p>
+        <i className="fas fa-user"> </i> Sign In To Your Account{" "}
+      </p>{" "}
       <form
         className="form"
         action="create-profile.html"
@@ -54,13 +54,13 @@ const Login = ({ loginUser, isAuthenticated }) => {
             minLength="6"
             value={formState.password}
             onChange={handleFormChange}
-          />
-        </div>
+          />{" "}
+        </div>{" "}
         <input type="submit" className="btn btn-primary" value="Login" />
-      </form>
+      </form>{" "}
       <p className="my-1">
-        Don't have an account? <Link to="/register">Create Account</Link>
-      </p>
+        Don 't have an account? <Link to="/register">Create Account</Link>{" "}
+      </p>{" "}
     </section>
   );
 };

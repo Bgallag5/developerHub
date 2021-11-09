@@ -5,9 +5,8 @@ import { Link, Navigate } from "react-router-dom";
 // import { register } from "../../actions/auth";
 import { setAlert } from "../actions/alert";
 import PropTypes from "prop-types";
-import axios from 'axios';
-import { registerUser } from '../actions/auth';
-
+import axios from "axios";
+import { registerUser } from "../actions/auth";
 
 const Register = ({ setAlert, registerUser, isAuthenticated }) => {
   const [formState, setFormState] = useState({
@@ -28,12 +27,12 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
     e.preventDefault();
 
     const { username, email, password, confirmPassword } = formState;
-    if (password !== confirmPassword){
-        // sends message, and type (type for css styles)
-        setAlert('Passwords must match', 'danger')
+    if (password !== confirmPassword) {
+      // sends message, and type (type for css styles)
+      setAlert("Passwords must match", "danger");
     } else {
-        console.log('success');
-        registerUser({username, email, password})
+      console.log("success");
+      registerUser({ username, email, password });
     }
   };
 
@@ -43,10 +42,10 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
 
   return (
     <section className="container">
-      <h1 className="large text-primary">Sign Up</h1>
+      <h1 className="large text-primary"> Sign Up </h1>{" "}
       <p className="lead">
-        <i className="fas fa-user"></i> Create Your Account
-      </p>
+        <i className="fas fa-user"> </i> Create Your Account{" "}
+      </p>{" "}
       <form
         className="form"
         action="create-profile.html"
@@ -60,8 +59,8 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
             value={formState.username}
             onChange={handleFormChange}
             // required
-          />
-        </div>
+          />{" "}
+        </div>{" "}
         <div className="form-group">
           <input
             type="email"
@@ -69,12 +68,12 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
             name="email"
             value={formState.email}
             onChange={handleFormChange}
-          />
+          />{" "}
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
-          </small>
-        </div>
+            Gravatar email{" "}
+          </small>{" "}
+        </div>{" "}
         <div className="form-group">
           <input
             type="password"
@@ -83,8 +82,8 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
             // minLength="6"
             value={formState.password}
             onChange={handleFormChange}
-          />
-        </div>
+          />{" "}
+        </div>{" "}
         <div className="form-group">
           <input
             type="password"
@@ -93,17 +92,16 @@ const Register = ({ setAlert, registerUser, isAuthenticated }) => {
             // minLength="6"
             value={formState.confirmPassword}
             onChange={handleFormChange}
-          />
-        </div>
+          />{" "}
+        </div>{" "}
         <input type="submit" className="btn btn-primary" value="Register" />
-      </form>
+      </form>{" "}
       <p className="my-1">
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
+        Already have an account ? <Link to="/login"> Login </Link>{" "}
+      </p>{" "}
     </section>
   );
 };
-
 
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
@@ -112,9 +110,8 @@ Register.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated
-})
-
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
 //export statement that connects redux; what we EXPORT in connect (i.e. setAlert), we have access to in PROPS on THIS component
-export default connect(mapStateToProps, {setAlert, registerUser})(Register);
+export default connect(mapStateToProps, { setAlert, registerUser })(Register);

@@ -11,6 +11,8 @@ import Landing from "./components/Landing";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+// import PrivateRoute from "./utils/PrivateRoute";
 
 
 if (localStorage.token) {
@@ -34,6 +36,7 @@ const App = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </Provider>

@@ -105,11 +105,14 @@ export const loginUser =
     };
 
 //logOut User
-export const logoutUser = () => async( dispatch ) => {
+export const logoutUser = () => async ( dispatch ) => {
+    //to logout I send a login In Fail
     try {
         dispatch( {
             type: LOGIN_FAIL,
         } );
+        //relocate user to login 
+        window.location.replace('/login');
     } catch ( err ) {
         console.log( err );
     }
